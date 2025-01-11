@@ -1,0 +1,25 @@
+
+
+
+client :
+ 1 . create 2 component 
+   * payment and check out 
+
+   2. payment componenet laodpromise = api key 
+
+   * import eleloemt under checkout form stripe={laodpromise}
+
+   3 . import use stripe and useElelemt 
+   * if stripe and eleloemts ! return 
+   * let card = eleloemt.getelemenmt(cardelelent) // card lelement form stripe
+   * {error , paymentMethod} = await stripe.paymentMethodcreate({ type :'card' card})
+   * ck paymentMethod error 
+   *{erorr ,payment intent} confirmcardpayment (secrec, {paymentMethod: {card:card}})
+
+   *ck error and paymenintent
+
+
+server
+1. get price 
+2. cnvt parseInt(price*100);
+3. usepaymentintent.create({ amount , currency , payment_method_types})

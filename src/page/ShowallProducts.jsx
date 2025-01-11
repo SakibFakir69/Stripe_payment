@@ -1,4 +1,6 @@
+import axios from "axios";
 import React from "react";
+import useAxiosPublic from "../apiManagement/useAxiosPublic";
 
 function ShowallProducts({ data }) {
   const { category, image, name, price, _id } = data;
@@ -6,7 +8,10 @@ function ShowallProducts({ data }) {
   // import use axios public then insert cart
 
 
-  
+  const useaxiosPublic  = useAxiosPublic();
+
+
+
 
   const handleCartButton = (item) => {
     const cart = {
@@ -14,7 +19,23 @@ function ShowallProducts({ data }) {
       image: item.image,
       name: item.name,
       price: item.price,
+      email :'sakibfakir69'
     };
+
+    // post 
+
+    useaxiosPublic.post('/cart',cart)
+    .then((res)=>{
+      if(res.data.insertedId
+
+      )
+      {
+        alert("done");
+      }
+      console.log(res.data);
+    })
+
+    
 
 
 
