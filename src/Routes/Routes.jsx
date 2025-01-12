@@ -6,6 +6,7 @@ import Payment from "../Payment/Payment";
 import AccountLayouts from "../Layouts/AccountLayouts";
 import Login from "../Account/Login";
 import SignUp from "../Account/SignUp";
+import PrivateRoute from "../Private/PrivateRoute";
 
 export const router = createBrowserRouter([
   {
@@ -18,11 +19,11 @@ export const router = createBrowserRouter([
       },
       {
         path: "/cart",
-        element: <Cart />,
+        element:<PrivateRoute><Cart/></PrivateRoute>
       },
       {
         path: "/payment",
-        element: <Payment />,
+        element: <PrivateRoute><Payment /></PrivateRoute>
       },
 
       //  login and signup

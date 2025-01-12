@@ -1,8 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import useAuth from "../Hooks/useAuth";
 
 function ShowCart({ data }) {
   const { price, name, image, category } = data;
+  const {loading } = useAuth();
+  console.log(loading,"show cart"
+  );
 
   return (
     <div>
@@ -24,6 +28,9 @@ function ShowCart({ data }) {
             Buy Now
           </button>
           </Link>
+          <div>
+            <button className="btn">Delete</button>
+          </div>
 
         </div>
       </div>

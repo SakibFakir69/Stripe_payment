@@ -1,6 +1,8 @@
 import React, { createContext, useEffect, useState } from "react";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "firebase/auth";
 import { app } from "../Firebase/Firebaseconfig";
+import useAxiosPublic from "../apiManagement/useAxiosPublic";
+import useAxiosSecure from "../apiManagement/useAxiosSecure";
 
 // create context
 export const MyContext = createContext();
@@ -54,6 +56,10 @@ function AuthContextapi({ children }) {
     
   };
 
+  const useaxiosPublic = useAxiosPublic();
+  console.log(loading,user);
+
+
 
 
 
@@ -64,13 +70,47 @@ function AuthContextapi({ children }) {
   useEffect(()=>{
 
     const unscribe =onAuthStateChanged(Auth,(currentUser)=>{
-      setuser(currentUser);
-      setloading(false);
+
+      if(currentUser)
+      {
+        setuser(currentUser);
+        useaxiosPublic.post('/signin')
+        .then((res)=>{
+          const token = res.data?.token;
+
+         if(token)
+         {
+          localStorage.setItem('jwtToken' , token);
+         }else{
+          console.log("token not founed")
+         }
+        })
+
+        
+
+
+
+      }else{
+
+        useaxiosPublic.get('/logout')
+        .then((res)=>{
+          localStorage.removeItem('jwtToken')
+        })
+        setloading(false);
+      }
+
+
+
+  
+    
+
+
     })
 
-    return unscribe();
+    return unscribe;
 
-  },[Auth])
+  },[useaxiosPublic,Auth]);
+
 
 
 

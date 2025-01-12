@@ -1,11 +1,12 @@
 import React from "react";
 import useAuth from "../Hooks/useAuth";
-
+import { Link } from "react-router-dom";
 function Login() {
   const { loginButtonhandle, setloading, setuser } = useAuth();
 
 
   const hadelLogin_button = (event)=>{
+
     event.preventDefault();
 
 
@@ -22,10 +23,10 @@ function Login() {
         setuser(users);
         setloading(false);
         alert('login done');
-        
+
     })
     .catch((error)=>{
-        console.log('error from login page');
+        console.log('error from login page',error.message);
         
     })
 
@@ -55,7 +56,7 @@ function Login() {
             Login or create account
           </p>
 
-          <form>
+          <form onSubmit={hadelLogin_button}>
             <div class="w-full mt-4">
               <input
                 class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border rounded-lg dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300"
@@ -82,7 +83,7 @@ function Login() {
                 Forget Password?
               </a>
 
-              <button class="px-6 py-2 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-500 rounded-lg hover:bg-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50">
+              <button type="submit" class="px-6 py-2 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-500 rounded-lg hover:bg-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50">
                 Sign In
               </button>
             </div>

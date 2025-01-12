@@ -2,6 +2,7 @@
 
 import React from 'react'
 import axios from 'axios'
+import useAuth from '../Hooks/useAuth'
 
 
 const useaxiosSecure = axios.create({
@@ -11,8 +12,21 @@ const useaxiosSecure = axios.create({
 
 function useAxiosSecure() {
 
-    axios.interceptors.request.use((config)=>{
+    // to manage cart 
+    const {setloading ,loading} = useAuth();
+    console.log(loading, "from secure")
+
+    useaxiosSecure.interceptors.request.use((config)=>{
         console.log("api reqested",config)
+
+        const token = localStorage.getItem('jwtToken');
+        if (token) {
+            config.headers['Authorization'] = `Bearer ${token}`;
+           
+          }
+         
+
+
 
         return config;
     },(error)=>{
@@ -22,8 +36,8 @@ function useAxiosSecure() {
 
     // response api 
 
-    axios.interceptors.response.use((response)=>{
-
+    useaxiosSecure.interceptors.response.use((response)=>{
+        
         console.log('intercepector req ',response)
 
         return response

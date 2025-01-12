@@ -9,15 +9,14 @@ function Cart() {
 
   const {cart, isLoading, isError,error} = UseCart();
   console.log(cart,"def");
+  console.log(cart,"cart")
 
   if(isLoading)
   {
-    return <p>Loading...</p>
+    return <p>loadin .. load</p>
   }
-  if(isError)
-  {
-    return <p className='text-red-400'>{error}</p>
-  }
+
+ 
 
   return (
     <div>
