@@ -1,8 +1,50 @@
 
 
 import React from 'react'
-
+import { Link, useNavigate } from 'react-router-dom'
+import useAuth from '../Hooks/useAuth';
 function SignUp() {
+
+    // handel signup user 
+    // aslo ck user exit or not
+    
+    const {createemailPasswordsingupButton,setuser,setloading } = useAuth();
+
+    const goHome = useNavigate();
+
+
+
+    const handleSignUpbutton = (event)=>{
+
+        event.preventDefault();
+
+        const data_from = new FormData(event.target);
+        const data = Object.fromEntries(data_from);
+        console.log(data);
+
+        const {email, name , password} =data;
+        setloading(true);
+
+
+        createemailPasswordsingupButton(email,password)
+        .then((result)=>{
+            const users = result.user;
+            setuser(users);
+            setloading(false);
+            alert('sign up done');
+
+            goHome('/')
+
+
+        })
+        .catch(error=>{
+            console.log(`this error from ${error.message}`);
+        })
+
+
+    
+
+    }
 
     
 
@@ -11,15 +53,15 @@ function SignUp() {
     <div>
         <section class="bg-white dark:bg-gray-900">
     <div class="container flex items-center justify-center min-h-screen px-6 mx-auto">
-        <form class="w-full max-w-md">
+        <form class="w-full max-w-md" onSubmit={handleSignUpbutton}>
             <div class="flex justify-center mx-auto">
                 <img class="w-auto h-7 sm:h-8" src="https://merakiui.com/images/logo.svg" alt=""/>
             </div>
             
             <div class="flex items-center justify-center mt-6">
-                <a href="#" class="w-1/3 pb-4 font-medium text-center text-gray-500 capitalize border-b dark:border-gray-400 dark:text-gray-300">
+                {/* <a href="#" class="w-1/3 pb-4 font-medium text-center text-gray-500 capitalize border-b dark:border-gray-400 dark:text-gray-300">
                     sign in
-                </a>
+                </a> */}
 
                 <a href="#" class="w-1/3 pb-4 font-medium text-center text-gray-800 capitalize border-b-2 border-blue-500 dark:border-blue-400 dark:text-white">
                     sign up
@@ -33,7 +75,7 @@ function SignUp() {
                     </svg>
                 </span>
 
-                <input type="text" class="block w-full py-3 text-gray-700 bg-white border rounded-lg px-11 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40" placeholder="Username"/>
+                <input type="text" required name="name" class="block w-full py-3 text-gray-700 bg-white border rounded-lg px-11 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40" placeholder="Username"/>
             </div>
 
             <label for="dropzone-file" class="flex items-center px-3 py-3 mx-auto mt-6 text-center bg-white border-2 border-dashed rounded-lg cursor-pointer dark:border-gray-600 dark:bg-gray-900">
@@ -43,7 +85,7 @@ function SignUp() {
 
                 <h2 class="mx-3 text-gray-400">Profile Photo</h2>
 
-                <input id="dropzone-file" type="file" class="hidden" />
+                <input id="dropzone-file" name='file' type="file" class="hidden" />
             </label>
 
             <div class="relative flex items-center mt-6">
@@ -53,7 +95,7 @@ function SignUp() {
                     </svg>
                 </span>
 
-                <input type="email" class="block w-full py-3 text-gray-700 bg-white border rounded-lg px-11 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40" placeholder="Email address"/>
+                <input type="email" required name='email' class="block w-full py-3 text-gray-700 bg-white border rounded-lg px-11 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40" placeholder="Email address"/>
             </div>
 
             <div class="relative flex items-center mt-4">
@@ -63,7 +105,7 @@ function SignUp() {
                     </svg>
                 </span>
 
-                <input type="password" class="block w-full px-10 py-3 text-gray-700 bg-white border rounded-lg dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40" placeholder="Password"/>
+                <input type="password" class="block w-full px-10 py-3 text-gray-700 bg-white border rounded-lg dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40" placeholder="Password" name='password'/>
             </div>
 
             <div class="relative flex items-center mt-4">

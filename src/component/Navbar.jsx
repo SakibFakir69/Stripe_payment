@@ -1,7 +1,33 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
+import useAuth from "../Hooks/useAuth";
 
 function Navbar() {
+
+  // useauth
+  const {user ,logoutfromNav,setloading,setuser} = useAuth();
+
+
+  const hadnelLogOut = ()=>{
+    setloading(false);
+
+    logoutfromNav()
+    .then((result)=>{
+      setloading(true);
+      setuser(null);
+
+    })
+    .catch((error)=>{
+      console.log('this error from navbar');
+
+    })
+  }
+
+
+
+
+
+
   const links =<>
   <li><NavLink to='/'>Products</NavLink></li>
   <li><NavLink to='/cart'>Carts</NavLink></li>
@@ -45,7 +71,27 @@ function Navbar() {
           </ul>
         </div>
         <div className="navbar-end">
-          <a className="btn">Button</a>
+
+
+          {/* button condition */}
+
+          {
+            user ? (<div>
+
+              <button onClick={hadnelLogOut} className="btn">Log out</button>
+
+
+            </div>) : 
+
+
+
+            (<div>
+              <Link to={'/account/signup'}>
+              <button className="btn ">Log in</button></Link>
+              
+               </div>)
+          }
+         
         </div>
       </div>
     </div>
