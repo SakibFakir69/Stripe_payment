@@ -8,7 +8,7 @@ const stripePromise = loadStripe("pk_test_51QfISB04b3lLFARwOBTLW4CymbOx7pP3fLso9
 function Payment() {
 
  
-
+ 
 
   return (
     <div>
